@@ -20,6 +20,8 @@ USERNAME = read_secrets()['budgetUSER']
 PASSWORD = read_secrets()['budgetPASS']
 UID_ext = read_secrets()['UID_ext']
 
+rooster = readVerint(verintURL, EMAIL, USERNAME, PASSWORD)
+
 def time_to_utc(native):
     native = datetime.strptime(native, "%A %d %B %Y %H:%M")
     local_dt = local.localize(native, is_dst=None)
@@ -30,50 +32,51 @@ def time_to_utc(native):
         utc_dt = str(utc_dt).replace(*r)
     return utc_dt
 
-client = caldav.DAVClient(url=davURL, username=davUSER, password=davPASS)
-principal = client.principal()
-calendars = principal.calendars()
-my_work_calendar = principal.calendar(name=work_calendar)
+def create_event(rooster):
 
-rooster = readVerint(verintURL, EMAIL, USERNAME, PASSWORD)
-date = ""
-starttime = ""
-stoptime = ""
-comment = ""
+    client = caldav.DAVClient(url=davURL, username=davUSER, password=davPASS)
+    principal = client.principal()
+    calendars = principal.calendars()
+    my_work_calendar = principal.calendar(name=work_calendar)
 
-for day in rooster:
-    date = day[0]
-    starttime = day[1]
-    stoptime = day[2]
-    comment = day[3]
+    date = ""
+    starttime = ""
+    stoptime = ""
+    comment = ""
 
-    location = kantoor
-    DTSTAMP = str(datetime.now()).replace("-", "").replace(" ", "T").replace(":", "").split(".")[0] + "Z"
-    DTSTART = time_to_utc(starttime)
-    DTEND = time_to_utc(stoptime)
-    UID = DTSTART + UID_ext
+    for day in rooster:
+        date = day[0]
+        starttime = day[1]
+        stoptime = day[2]
+        comment = day[3]
+
+        location = kantoor
+        DTSTAMP = str(datetime.now()).replace("-", "").replace(" ", "T").replace(":", "").split(".")[0] + "Z"
+        DTSTART = time_to_utc(starttime)
+        DTEND = time_to_utc(stoptime)
+        UID = DTSTART + UID_ext
 
 
-    ics = f"""
-BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Example Corp.//CalDAV Client//EN
-BEGIN:VEVENT
-UID:{UID}
-DTSTAMP:{DTSTAMP}
-DTSTART:{DTSTART}
-DTEND:{DTEND}
-LOCATION: {location}
-SUMMARY:Werken
-DESCRIPTION:{comment}
-END:VEVENT
-"""
+        ics = f"""
+    BEGIN:VCALENDAR
+    VERSION:2.0
+    PRODID:-//Example Corp.//CalDAV Client//EN
+    BEGIN:VEVENT
+    UID:{UID}
+    DTSTAMP:{DTSTAMP}
+    DTSTART:{DTSTART}
+    DTEND:{DTEND}
+    LOCATION: {location}
+    SUMMARY:Werken
+    DESCRIPTION:{comment}
+    END:VEVENT
+    """
 
-    ics += """END:VCALENDAR
-        """
+        ics += """END:VCALENDAR
+            """
 
-    # print(ics)
-    my_event = my_work_calendar.save_event(ics)
+        # print(ics)
+        my_event = my_work_calendar.save_event(ics)
 
 if __name__ == "__main__":
     time.sleep(60)  # imagine you would like to start work in 1 minute first time
