@@ -74,3 +74,10 @@ END:VEVENT
 
     # print(ics)
     my_event = my_work_calendar.save_event(ics)
+
+if __name__ == "__main__":
+    time.sleep(60)  # imagine you would like to start work in 1 minute first time
+    while True:
+
+        create_event(rooster)
+        time.sleep(3600)  # do work every one hour
