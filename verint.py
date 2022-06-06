@@ -46,14 +46,15 @@ def readVerint(URL, EMAIL, USERNAME, PASSWORD):
     +"AppleWebKit/537.36 (KHTML, like Gecko)"
     +"Chrome/87.0.4280.141 Safari/537.36")
     options.add_argument("--enable-javascript")
-    DRIVER_PATH = "/home/zanbee/chromedriver"
+    # DRIVER_PATH = "/home/zanbee/Downloads/chromedriver"
+    DRIVER_PATH = "/usr/bin/chromedriver"
 
     options = Options()
     options.headless = True
     options.add_argument("--window-size=1920,1200")
 
-    # driver = webdriver.Chrome(options=options, executable_path=DRIVER_PATH)
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    driver = webdriver.Chrome(options=options, executable_path=DRIVER_PATH)
+    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     driver.get(URL)
     
