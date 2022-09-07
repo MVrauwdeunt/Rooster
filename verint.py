@@ -65,9 +65,9 @@ def readVerint(URL, EMAIL, USERNAME, PASSWORD):
     submit = driver.find_element(By.XPATH, '//span[@id="submitButton"]').click()
 
     time.sleep(10) #wait 10 seconds
-    frame = driver.find_element(By.XPATH, '//*[@id="mctnt"]')
-    driver.switch_to.frame(frame)
-    time.sleep(2) #wait 5 seconds
+#    frame = driver.find_element(By.XPATH, '//*[@id="mctnt"]')
+    driver.switch_to.frame('mctnt')
+    time.sleep(10) #wait 10 seconds
     select = driver.find_element(By.XPATH, '//*[@id="_drpOBTWrapper_img_id"]').click()
 
     select = driver.find_element(By.XPATH, '//*[@id="_drp_BTN_5"]').click()
@@ -115,7 +115,8 @@ def readVerint(URL, EMAIL, USERNAME, PASSWORD):
                 if a:
                     result.append(a)
 
-    # driver.save_screenshot('screenshot.png')
+#    driver.save_screenshot('screenshot.png')
+#    print(result)
     driver.quit()
     return result
 
