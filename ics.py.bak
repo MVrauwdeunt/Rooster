@@ -1,6 +1,6 @@
 from verint import *
 from secrets import read_secrets
-
+import time
 import caldav
 from icalendar import Calendar, Event
 
@@ -21,24 +21,27 @@ PASSWORD = read_secrets()['budgetPASS']
 UID_ext = read_secrets()['UID_ext']
 
 rooster = readVerint(verintURL, EMAIL, USERNAME, PASSWORD)
+client = caldav.DAVClient(url=davURL, username=davUSER, password=davPASS)
+# principal = client.principal()
+# calendars = principal.calendars()
+# my_work_calendar = principal.calendar(name=work_calendar)
 
 def time_to_utc(native):
     native = datetime.strptime(native, "%A %d %B %Y %H:%M")
     local_dt = local.localize(native, is_dst=None)
     utc_dt = local_dt.astimezone(pytz.utc)
-    #utc_dt = utc_dt.strftime("%A %d %B %Y %H:%M")
     for r in (("-",""), (" ", "T"), (":", ""), ("+0000", "Z")):
-    # for r in (("-",""), (" ", "T"), (":", "")):
         utc_dt = str(utc_dt).replace(*r)
     return utc_dt
 
 def create_event(rooster):
 
-    client = caldav.DAVClient(url=davURL, username=davUSER, password=davPASS)
-    principal = client.principal()
-    calendars = principal.calendars()
-    my_work_calendar = principal.calendar(name=work_calendar)
+    # client = caldav.DAVClient(url=davURL, username=davUSER, password=davPASS)
+    # principal = client.principal()
+    # calendars = principal.calendars()
+    # my_work_calendar = principal.calendar(name=work_calendar)
 
+    # rooster = readVerint(verintURL, EMAIL, USERNAME, PASSWORD)
     date = ""
     starttime = ""
     stoptime = ""
@@ -71,15 +74,16 @@ def create_event(rooster):
     DESCRIPTION:{comment}
     END:VEVENT
     """
+
         ics += """END:VCALENDAR
             """
 
-        # print(ics)
-        my_event = my_work_calendar.save_event(ics)
+        print(ics)
+        # my_event = my_work_calendar.save_event(ics)
 
 if __name__ == "__main__":
     time.sleep(60)  # imagine you would like to start work in 1 minute first time
     while True:
-
+        # print("Test")
         create_event(rooster)
         time.sleep(3600)  # do work every one hour
