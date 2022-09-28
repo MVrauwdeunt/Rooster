@@ -3,7 +3,7 @@ from secrets import read_secrets
 
 import caldav
 from icalendar import Calendar, Event
-
+import schedule
 import pytz
 import locale
 locale.setlocale(locale.LC_ALL, "nl_NL.utf8")
@@ -58,6 +58,7 @@ def create_event(rooster):
 
 
         ics = f"""
+<<<<<<< HEAD
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Example Corp.//CalDAV Client//EN
@@ -75,13 +76,38 @@ END:VCALENDAR
 
        # ics += """END:VCALENDAR
        #     """
+=======
+    BEGIN:VCALENDAR
+    VERSION:2.0
+    PRODID:-//Example Corp.//CalDAV Client//EN
+    BEGIN:VEVENT
+    UID:{UID}
+    DTSTAMP:{DTSTAMP}
+    DTSTART:{DTSTART}
+    DTEND:{DTEND}
+    LOCATION: {location}
+    SUMMARY:Werken
+    DESCRIPTION:{comment}
+    END:VEVENT
+    """
+        ics += """END:VCALENDAR
+            """
+>>>>>>> 7dda4e0898da04ab9ab1bc9bde7d88181731766e
 
         # print(ics)
         my_event = my_work_calendar.save_event(ics)
 
+<<<<<<< HEAD
 if __name__ == "__main__":
     time.sleep(60)  # imagine you would like to start work in 1 minute first time
     while True:
 
         create_event(rooster)
         time.sleep(3600)  # do work every one hour
+=======
+schedule.every().hour.do(create_event(rooster))
+while True:
+    schedule.run_pending()
+    # create_event(rooster)
+    # time.sleep(3600)  # do work every one hour
+>>>>>>> 7dda4e0898da04ab9ab1bc9bde7d88181731766e

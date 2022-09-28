@@ -14,15 +14,6 @@ import time
 import locale
 locale.setlocale(locale.LC_ALL, "nl_NL.utf8")
 
-# davURL = read_secrets()['davURL']
-# davUSER = read_secrets()['davUSER']
-# davPASS = read_secrets()['davPASS']
-# work_calendar = read_secrets()['work_calendar']
-# input_file = read_secrets()['inputFILE']
-# UID_ext = read_secrets()['UID_ext']
-# kantoor = read_secrets()['kantoor']
-# location = "Thuis"
-
 verintURL = read_secrets()['verintURL']
 EMAIL = read_secrets()['budgetEMAIL']
 USERNAME = read_secrets()['budgetUSER']
@@ -64,10 +55,16 @@ def readVerint(URL, EMAIL, USERNAME, PASSWORD):
     password = driver.find_element(By.NAME, "Password").send_keys(PASSWORD)
     submit = driver.find_element(By.XPATH, '//span[@id="submitButton"]').click()
 
+    time.sleep(16) #wait 10 seconds
+    # frame = driver.find_element(By.XPATH, '//*[@id="mctnt"]')
+    driver.switch_to.frame('mctnt')
     time.sleep(10) #wait 10 seconds
+<<<<<<< HEAD
 #    frame = driver.find_element(By.XPATH, '//*[@id="mctnt"]')
     driver.switch_to.frame('mctnt')
     time.sleep(10) #wait 10 seconds
+=======
+>>>>>>> 7dda4e0898da04ab9ab1bc9bde7d88181731766e
     select = driver.find_element(By.XPATH, '//*[@id="_drpOBTWrapper_img_id"]').click()
 
     select = driver.find_element(By.XPATH, '//*[@id="_drp_BTN_5"]').click()
@@ -115,9 +112,12 @@ def readVerint(URL, EMAIL, USERNAME, PASSWORD):
                 if a:
                     result.append(a)
 
+<<<<<<< HEAD
 #    driver.save_screenshot('screenshot.png')
 #    print(result)
+=======
+    # driver.save_screenshot('screenshot.png')
+    # print(result)
+>>>>>>> 7dda4e0898da04ab9ab1bc9bde7d88181731766e
     driver.quit()
     return result
-
-# print(readVerint(verintURL, EMAIL, USERNAME, PASSWORD))
