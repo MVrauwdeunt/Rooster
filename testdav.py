@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-# from verint import *
-=======
 from verint import *
->>>>>>> 7dda4e0898da04ab9ab1bc9bde7d88181731766e
+
 from secrets import read_secrets
 import time
 import caldav
@@ -25,8 +22,4 @@ my_principal = client.principal()
 calendars = my_principal.calendars()
 my_work_calendar = my_principal.calendar(name=work_calendar)
 
-<<<<<<< HEAD
 print(my_work_calendar)
-=======
-print(my_work_calendar)
->>>>>>> 7dda4e0898da04ab9ab1bc9bde7d88181731766e
