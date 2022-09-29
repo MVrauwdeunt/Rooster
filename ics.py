@@ -57,23 +57,23 @@ def create_event(rooster):
         UID = DTSTART + UID_ext
 
         ics = f"""BEGIN:VCALENDAR
-        VERSION:2.0
-        PRODID:-//Example Corp.//CalDAV Client//EN
-        BEGIN:VEVENT
-        UID:{UID}
-        DTSTAMP:{DTSTAMP}
-        DTSTART:{DTSTART}
-        DTEND:{DTEND}
-        LOCATION: {location}
-        SUMMARY:Werken
-        DESCRIPTION:{comment}
-        END:VEVENT
-        END:VCALENDAR
-        """
+    VERSION:2.0
+    PRODID:-//Example Corp.//CalDAV Client//EN
+    BEGIN:VEVENT
+    UID:{UID}
+    DTSTAMP:{DTSTAMP}
+    DTSTART:{DTSTART}
+    DTEND:{DTEND}
+    LOCATION: {location}
+    SUMMARY:Werken
+    DESCRIPTION:{comment}
+    END:VEVENT
+    END:VCALENDAR
+    """
     #    ics += """END:VCALENDAR"""
 
-        # print(ics)
-        my_event = my_work_calendar.save_event(ics)
+        print(ics)
+        # my_event = my_work_calendar.save_event(ics)
 
 # schedule.every().hour.do(create_event(rooster))
 # while True:
