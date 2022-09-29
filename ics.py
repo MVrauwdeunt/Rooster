@@ -56,7 +56,6 @@ def create_event(rooster):
         DTEND = time_to_utc(stoptime)
         UID = DTSTART + UID_ext
 
-
         ics = f"""
     BEGIN:VCALENDAR
     VERSION:2.0
