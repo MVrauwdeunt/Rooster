@@ -69,9 +69,9 @@ def create_event(rooster):
     SUMMARY:Werken
     DESCRIPTION:{comment}
     END:VEVENT
+    END:VCALENDAR
     """
-        ics += """END:VCALENDAR
-            """
+    #    ics += """END:VCALENDAR"""
 
         # print(ics)
         my_event = my_work_calendar.save_event(ics)
