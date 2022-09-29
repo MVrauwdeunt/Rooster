@@ -72,8 +72,8 @@ END:VCALENDAR
 """
     #    ics += """END:VCALENDAR"""
 
-        print(ics)
-        # my_event = my_work_calendar.save_event(ics)
+        # print(ics)
+        my_event = my_work_calendar.save_event(ics)
 
 # schedule.every().hour.do(create_event(rooster))
 # while True:
